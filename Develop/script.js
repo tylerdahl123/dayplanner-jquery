@@ -1,18 +1,21 @@
 var days = [
     {
         hour: "08 :",
+        time: "08",
         ampm: "am",
         id: "0",
         reminder:""
     },
     {
         hour: "09 : ",
+        time: "09",
         ampm: "am",
         id: "1",
         reminder: "",
     },
     {
         hour: "10 : ",
+        time: "10",
         ampm: "am",
         id: "2",
         reminder: "",
@@ -20,18 +23,21 @@ var days = [
     },
     {
         hour: "11 : ",
+        time: "11",
         ampm: "am",
         id: "3",
         reminder: "",
     },
     {
         hour: "12 : ",
+        time: "12",
         ampm: "pm",
         id: "4",
         reminder: "",
     },
     {
         hour: "01 : ",
+        time: "13",
         ampm: "pm",
         id: "5",
         reminder: "", 
@@ -39,30 +45,35 @@ var days = [
     },
     {
         hour: "02 : ",
+        time: "14",
         ampm: "pm",
         id: "6",
         reminder: "",
     },
     {
         hour:"03 : ",
+        time: "15",
         ampm: "pm",
         id: "7",
         reminder: "",
     },
     {
         hour: "04 : ",
+        time: "16",
         ampm: "pm : ",
         id: "8",
         reminder: "",
         },
     {
         hour: "05 : ",
+        time: "16",
         ampm: "pm",
         id: "9",
         reminder: "",
     },
     {
         hour: "06 :",
+        time: "17",
         ampm: "pm",
         id: "10",
         reminder: "" 
@@ -121,7 +132,7 @@ var hourPlan = $("<div>")
 
 var planData = $("<textarea>");
     hourPlan.append(planData);
-    planData.attr("id", thisHour.id);
+    planData.attr("id", thisHour.id);//trying to get the css to link based on time...//checks to see if the id in the days array is less then or greater then the time of day. 
     if (thisHour.time < moment().format("HH")) {
         planData.attr ({
             "class": "past", 
@@ -135,22 +146,16 @@ var planData = $("<textarea>");
             "class": "future"
         })
     }
-var saveButton = $("<i></i>")
+
 var savePlan = $("<button>")
 .attr ({
-    "class": "col-md-1 saveBtn"
+    "class": "col-md-1 saveBtn"//moves the button over to the right side.
 
 });
 
-savePlan.append(saveButton);
+
 hourRow.append(hourField,hourPlan,savePlan);
 })
 
 init();
-
-
-
-
-
-
 
