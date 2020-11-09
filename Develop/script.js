@@ -91,23 +91,30 @@ days.forEach(function(thisHour) {
 
 
 var hourField = $("<div>")
-.text("{thisHour.hour}{thisHour.meridiem}")
+$(hourField).text(days.hour + days.ampm)
 .attr({
     "class": "col-md-2 hour"
 });
+
+
+var hourPlan = $("<div>")
+.attr ({
+    "class": "col-md-9 description p-0"
+});
+
+
 var saveButton = $("<i class='far fa-save fa-lg'></i>")
 var savePlan = $("<button>")
 .attr ({
     "class": "col-md-1 saveBtn"
 
 });
+
 savePlan.append(saveButton);
-hourRow.append(hourField,savePlan);
+hourRow.append(hourField,hourPlan,savePlan);
 })
 
-
-
-
+init();
 
 
 
