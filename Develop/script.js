@@ -159,3 +159,7 @@ hourRow.append(hourField,hourPlan,savePlan);
 
 init();
 
+$(".saveBtn").on("click", function (event) {
+    event.preventDefault();
+    
+})
