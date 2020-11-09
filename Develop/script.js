@@ -3,58 +3,69 @@ var days = [
         hour: "08 :",
         ampm: "am",
         id: "0",
+        reminder:""
     },
     {
         hour: "09 : ",
         ampm: "am",
         id: "1",
+        reminder: "",
     },
     {
         hour: "10 : ",
         ampm: "am",
         id: "2",
+        reminder: "",
 
     },
     {
         hour: "11 : ",
         ampm: "am",
         id: "3",
+        reminder: "",
     },
     {
         hour: "12 : ",
         ampm: "pm",
         id: "4",
+        reminder: "",
     },
     {
         hour: "01 : ",
         ampm: "pm",
         id: "5",
+        reminder: "", 
 
     },
     {
         hour: "02 : ",
         ampm: "pm",
         id: "6",
+        reminder: "",
     },
     {
         hour:"03 : ",
         ampm: "pm",
         id: "7",
+        reminder: "",
     },
     {
         hour: "04 : ",
         ampm: "pm : ",
         id: "8",
-    },
+        reminder: "",
+        },
     {
         hour: "05 : ",
         ampm: "pm",
         id: "9",
+        reminder: "",
     },
     {
-        hour: "06 : ",
+        hour: "06 :",
         ampm: "pm",
         id: "10",
+        reminder: "" 
     },
 ]
 
@@ -93,7 +104,10 @@ days.forEach(function(thisHour)//creating a row for each of my hours in my days 
 
 
 var hourField = $("<div>")//creating a new div for my hours..//
-.text(days.hour + days.ampm)//backtics or the grave accent allows you concatentate parts into a single string...(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+
+.text(`${thisHour.hour}${thisHour.ampm}`)//backtics or the grave accent allows you concatentate parts into a single string...(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+
+
 .attr({
     "class": "col-md-2 hour"
 });
@@ -105,6 +119,22 @@ var hourPlan = $("<div>")
 });
 
 
+var planData = $("<textarea>");
+    hourPlan.append(planData);
+    planData.attr("id", thisHour.id);
+    if (thisHour.time < moment().format("HH")) {
+        planData.attr ({
+            "class": "past", 
+        })
+    } else if (thisHour.time === moment().format("HH")) {
+        planData.attr({
+            "class": "present"
+        })
+    } else if (thisHour.time > moment().format("HH")) {
+        planData.attr({
+            "class": "future"
+        })
+    }
 var saveButton = $("<i></i>")
 var savePlan = $("<button>")
 .attr ({
@@ -117,8 +147,6 @@ hourRow.append(hourField,hourPlan,savePlan);
 })
 
 init();
-
-
 
 
 
