@@ -63,7 +63,24 @@ function getHeaderDate () {
     $("#currentDay").text(currentDate);
 }
 
+function saveReminders (){
+    localStorage.setItem("days", JSON.stringify(days));
+}
 
+function displayInput (){
+    days.forEach(function (_thisHour){
+        $("#${_thisHour.id}").val(_thisHour.reminder);
+    })
+}
+
+function init () {
+    var storedDay = JSON.parse(localStorage.getItem("days"));
+    if (storedDay) {
+        days = storedDay;
+    }
+    saveReminders();
+    displayReminders();
+}
 getHeaderDate();
 
 days.forEach(function(thisHour) {
@@ -74,17 +91,27 @@ days.forEach(function(thisHour) {
 
 
 var hourField = $("<div>")
-.text("${thisHour.hour}${thisHour.meridiem})
+.text("{thisHour.hour}{thisHour.meridiem}")
 .attr({
     "class": "col-md-2 hour"
 });
+var saveButton = $("<i class='far fa-save fa-lg'></i>")
+var savePlan = $("<button>")
+.attr ({
+    "class": "col-md-1 saveBtn"
+
+});
+savePlan.append(saveButton);
+hourRow.append(hourField,savePlan);
 })
 
 
-var hourPlan = $("<div>")
-.attr ({
-    "class": "col-md-9 description p-0"
-});
+
+
+
+
+
+
 
 
 
