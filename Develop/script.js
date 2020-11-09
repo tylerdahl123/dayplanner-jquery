@@ -1,58 +1,58 @@
 var days = [
     {
-        hour: "08",
+        hour: "08 :",
         ampm: "am",
         id: "0",
     },
     {
-        hour: "09",
+        hour: "09 : ",
         ampm: "am",
         id: "1",
     },
     {
-        hour: "10",
+        hour: "10 : ",
         ampm: "am",
         id: "2",
 
     },
     {
-        hour: "11",
+        hour: "11 : ",
         ampm: "am",
         id: "3",
     },
     {
-        hour: "12",
+        hour: "12 : ",
         ampm: "pm",
         id: "4",
     },
     {
-        hour: "01",
+        hour: "01 : ",
         ampm: "pm",
         id: "5",
 
     },
     {
-        hour: "02",
+        hour: "02 : ",
         ampm: "pm",
         id: "6",
     },
     {
-        hour:"03",
+        hour:"03 : ",
         ampm: "pm",
         id: "7",
     },
     {
-        hour: "04",
-        ampm: "pm",
+        hour: "04 : ",
+        ampm: "pm : ",
         id: "8",
     },
     {
-        hour: "05",
+        hour: "05 : ",
         ampm: "pm",
         id: "9",
     },
     {
-        hour: "06",
+        hour: "06 : ",
         ampm: "pm",
         id: "10",
     },
@@ -64,12 +64,13 @@ function getHeaderDate () {
 }
 
 function saveReminders (){
-    localStorage.setItem("days", JSON.stringify(days));
+    localStorage.setItem("days", JSON.stringify(days));//putting my 
 }
 
-function displayInput (){
-    days.forEach(function (_thisHour){
-        $("#${_thisHour.id}").val(_thisHour.reminder);
+
+function displayReminders() {
+    days.forEach(function (_thisHour) {
+        $(`#${_thisHour.id}`).val(_thisHour.reminder);
     })
 }
 
@@ -83,15 +84,16 @@ function init () {
 }
 getHeaderDate();
 
-days.forEach(function(thisHour) {
+days.forEach(function(thisHour)//creating a row for each of my hours in my days //
+ {
     var hourRow= $("<form>").attr({
         "class": "row"
     });
     $(".container").append(hourRow);
 
 
-var hourField = $("<div>")
-$(hourField).text(days.hour + days.ampm)
+var hourField = $("<div>")//creating a new div for my hours..//
+.text(days.hour + days.ampm)//backtics or the grave accent allows you concatentate parts into a single string...(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 .attr({
     "class": "col-md-2 hour"
 });
@@ -99,11 +101,11 @@ $(hourField).text(days.hour + days.ampm)
 
 var hourPlan = $("<div>")
 .attr ({
-    "class": "col-md-9 description p-0"
+    "class": "col-md-9 description p-0"//using some good ole fashion columns to get the hours over where 
 });
 
 
-var saveButton = $("<i class='far fa-save fa-lg'></i>")
+var saveButton = $("<i></i>")
 var savePlan = $("<button>")
 .attr ({
     "class": "col-md-1 saveBtn"
