@@ -161,7 +161,8 @@ init();
 
 $(".saveBtn").on("click", function(event) {
     event.preventDefault();
-    days.text = $(this).siblings(".description").children(".past", ".present", ".future").val();
+    var saveData = $(this).siblings(".description").children(".past", ".present", ".future").attr("id");
+    days[saveData].reminder = $(this).siblings(".description").children(".past", ".present", ".future").val();//i used MDN for the sibling too
     
     saveReminders();//saved data is saved to an array within the days array.and we are accessing the reminder portion. it is going to be equal to the value of the 
     displayReminders();
