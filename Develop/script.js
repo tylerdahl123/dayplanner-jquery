@@ -126,7 +126,7 @@ var hourField = $("<div>")//creating a new div for my hours..//
 
 var hourPlan = $("<div>")
 .attr ({
-    "class": "col-md-9 description p-0"//using some good ole fashion columns to get the hours over where 
+    "class": "col-md-9 description p-0"//using some good ole fashion columns to get the hours over where. also gives it the descrption class.
 });
 
 
@@ -159,7 +159,10 @@ hourRow.append(hourField,hourPlan,savePlan);
 
 init();
 
-$(".saveBtn").on("click", function (event) {
+$(".saveBtn").on("click", function(event) {
     event.preventDefault();
+    days.text = $(this).siblings(".description").children(".past", ".present", ".future").val();
     
+    saveReminders();//saved data is saved to an array within the days array.and we are accessing the reminder portion. it is going to be equal to the value of the 
+    displayReminders();
 })
