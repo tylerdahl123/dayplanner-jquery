@@ -80,17 +80,17 @@ var days = [
     },
 ]
 
-function getHeaderDate () {
-    var currentDate = moment().format("MMM Do YYYY");
-    $("#currentDay").text(currentDate);
+function getToday () {
+    var today = moment().format("MMM Do YYYY");
+    $("#today").text(today);
 }
 
-function saveReminders (){
+function toDosave (){
     localStorage.setItem("days", JSON.stringify(days));//putting my 
 }
 
 
-function displayReminders() {
+function toDoDisplay() {
     days.forEach(function (_thisHour) {
         $(`#${_thisHour.id}`).val(_thisHour.reminder);
     })
@@ -101,17 +101,17 @@ function init () {
     if (storedDay) {
         days = storedDay;
     }
-    saveReminders();
-    displayReminders();
+    toDosave();
+    toDoDisplay();
 }
-getHeaderDate();
+getToday();
 
 days.forEach(function(thisHour)//creating a row for each of my hours in my days //
  {
-    var hourRow= $("<form>").attr({
+    var hRow= $("<form>").attr({
         "class": "row"
     });
-    $(".container").append(hourRow);
+    $(".container").append(hRow);
 
 
 var hourField = $("<div>")//creating a new div for my hours..//
@@ -124,46 +124,46 @@ var hourField = $("<div>")//creating a new div for my hours..//
 });
 
 
-var hourPlan = $("<div>")
+var hour = $("<div>")
 .attr ({
     "class": "col-md-9 description p-0"//using some good ole fashion columns to get the hours over where. also gives it the descrption class.
 });
 
 
-var planData = $("<textarea>");
-    hourPlan.append(planData);
-    planData.attr("id", thisHour.id);//trying to get the css to link based on time...//checks to see if the id in the days array is less then or greater then the time of day. 
+var data = $("<textarea>");
+    hour.append(data);
+    data.attr("id", thisHour.id);//trying to get the css to link based on time...//checks to see if the id in the days array is less then or greater then the time of day. 
     if (thisHour.time < moment().format("HH")) {
-        planData.attr ({
+        data.attr ({
             "class": "past", 
         })
     } else if (thisHour.time === moment().format("HH")) {
-        planData.attr({
+        data.attr({
             "class": "present"
         })
     } else if (thisHour.time > moment().format("HH")) {
-        planData.attr({
+        data.attr({
             "class": "future"
         })
     }
 
-var savePlan = $("<button>")
+var save = $("<button>")
 .attr ({
     "class": "col-md-1 saveBtn"//moves the button over to the right side.
 
 });
 
 
-hourRow.append(hourField,hourPlan,savePlan);
+hourRow.append(hourField,hour,save);
 })
 
 init();
 
 $(".saveBtn").on("click", function(event) {
     event.preventDefault();
-    var saveData = $(this).siblings(".description").children(".past", ".present", ".future").attr("id");
-    days[saveData].reminder = $(this).siblings(".description").children(".past", ".present", ".future").val();//i used MDN for the sibling too
+    var saveIt = $(this).getElementByClass(".description").children(".past", ".present", ".future").attr("id");
+    days[saveIt].reminder = $(this).getElementByClass(".description").children(".past", ".present", ".future").val();//i used MDN for the sibling too
     
-    saveReminders();//saved data is saved to an array within the days array.and we are accessing the reminder portion. it is going to be equal to the value of the 
-    displayReminders();
+    getToday();//saved data is saved to an array within the days array.and we are accessing the reminder portion. it is going to be equal to the value of the 
+    toDoDisplay();
 })
