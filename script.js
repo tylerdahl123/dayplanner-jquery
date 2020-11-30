@@ -80,23 +80,23 @@ var days = [
     },
 ]
 
-function getToday () {
+ getToday= () =>{
     var today = moment().format("MMM Do YYYY");
     $("#today").text(today);
 }
 
-function toDosave (){
+toDosave = () => {
     localStorage.setItem("days", JSON.stringify(days));//putting my 
 }
 
 
-function toDoDisplay() {
+ toDoDisplay =() =>{
     days.forEach(function (_thisHour) {
         $(`#${_thisHour.id}`).val(_thisHour.reminder);
     })
 }
 
-function init () {
+ init =() =>{
     var storedDay = JSON.parse(localStorage.getItem("days"));
     if (storedDay) {
         days = storedDay;
