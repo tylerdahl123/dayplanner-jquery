@@ -1,22 +1,22 @@
-var days = [
+var schedule = [
     {
         hour: "08 :",
         time: "08",
-        ampm: "am",
+        dayNight: "day",
         id: "0",
         reminder:""
     },
     {
         hour: "09 : ",
         time: "09",
-        ampm: "am",
+        dayNight: "day",
         id: "1",
         reminder: "",
     },
     {
         hour: "10 : ",
         time: "10",
-        ampm: "am",
+        dayNight: "day",
         id: "2",
         reminder: "",
 
@@ -24,21 +24,21 @@ var days = [
     {
         hour: "11 : ",
         time: "11",
-        ampm: "am",
+        dayNight: "day",
         id: "3",
         reminder: "",
     },
     {
         hour: "12 : ",
         time: "12",
-        ampm: "pm",
+        dayNight: "Night",
         id: "4",
         reminder: "",
     },
     {
         hour: "01 : ",
         time: "13",
-        ampm: "pm",
+        dayNight: "Night",
         id: "5",
         reminder: "", 
 
@@ -46,67 +46,54 @@ var days = [
     {
         hour: "02 : ",
         time: "14",
-        ampm: "pm",
+        dayNight: "Night",
         id: "6",
         reminder: "",
     },
     {
         hour:"03 : ",
         time: "15",
-        ampm: "pm",
+        dayNight: "Night",
         id: "7",
         reminder: "",
     },
     {
         hour: "04 : ",
         time: "16",
-        ampm: "pm : ",
+        dayNight: "Night : ",
         id: "8",
         reminder: "",
-        },
-    {
-        hour: "05 : ",
-        time: "16",
-        ampm: "pm",
-        id: "9",
-        reminder: "",
-    },
-    {
-        hour: "06 :",
-        time: "17",
-        ampm: "pm",
-        id: "10",
-        reminder: "" 
-    },
+        }
+ 
 ]
 
- getToday= () =>{
-    var today = moment().format("MMM Do YYYY");
-    $("#today").text(today);
+ getHeaderDate= () =>{
+    var currentDate = moment().format("MMM Do YYYY");
+    $("#currentDate").text(currentDate);
 }
 
-toDosave = () => {
-    localStorage.setItem("days", JSON.stringify(days));//putting my 
+save = () => {
+    localStorage.setItem("schedule", JSON.stringify(schedule));//putting my things into local storage
 }
 
 
- toDoDisplay =() =>{
-    days.forEach(function (_thisHour) {
-        $(`#${_thisHour.id}`).val(_thisHour.reminder);
+ display =() =>{
+    schedule.forEach(function (currentHour) {
+        $(`${currentHour.id}`).val(currentHour.reminder);
     })
 }
 
  init =() =>{
-    var storedDay = JSON.parse(localStorage.getItem("days"));
+    var storedDay = JSON.parse(localStorage.getItem("schedule"));
     if (storedDay) {
-        days = storedDay;
+        schedule = storedDay;
     }
-    toDosave();
-    toDoDisplay();
+    save();
+    display();
 }
-getToday();
+getHeaderDate();
 
-days.forEach(function(thisHour)//creating a row for each of my hours in my days //
+schedule.forEach(function(currentHour)//creating a row for each of my hours in my schedule //
  {
     var hRow= $("<form>").attr({
         "class": "row"
@@ -114,11 +101,9 @@ days.forEach(function(thisHour)//creating a row for each of my hours in my days 
     $(".container").append(hRow);
 
 
-var hourField = $("<div>")//creating a new div for my hours..//
+var sideBar = $("<div>")//creating a new div for my hours..//
 
-.text(`${thisHour.hour}${thisHour.ampm}`)//backtics or the grave accent allows you concatentate parts into a single string...(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
-
-
+.text(`${currentHour.hour}${currentHour.dayNight}`)//backtics or the grave accent allows you concatentate parts into a single string...(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 .attr({
     "class": "col-md-2 hour"
 });
@@ -130,19 +115,19 @@ var hour = $("<div>")
 });
 
 
-var data = $("<textarea>");
-    hour.append(data);
-    data.attr("id", thisHour.id);//trying to get the css to link based on time...//checks to see if the id in the days array is less then or greater then the time of day. 
-    if (thisHour.time < moment().format("HH")) {
-        data.attr ({
+var styles = $("<textarea>");
+    hour.append(styles);
+    styles.attr("id", currentHour.id);//trying to get the css to link based on time...//checks to see if the id in the schedule array is less then or greater then the time of day. 
+    if (currentHour.time < moment().format("HH")) {
+        styles.attr ({
             "class": "past", 
         })
-    } else if (thisHour.time === moment().format("HH")) {
-        data.attr({
+    } else if (currentHour.time === moment().format("HH")) {
+        styles.attr({
             "class": "present"
         })
-    } else if (thisHour.time > moment().format("HH")) {
-        data.attr({
+    } else if (currentHour.time > moment().format("HH")) {
+        styles.attr({
             "class": "future"
         })
     }
@@ -154,16 +139,16 @@ var save = $("<button>")
 });
 
 
-hourRow.append(hourField,hour,save);
+hRow.append(sideBar,hour,save);
 })
 
 init();
 
 $(".saveBtn").on("click", function(event) {
     event.preventDefault();
-    var saveIt = $(this).getElementByClass(".description").children(".past", ".present", ".future").attr("id");
-    days[saveIt].reminder = $(this).getElementByClass(".description").children(".past", ".present", ".future").val();//i used MDN for the sibling too
+    var saveEvent = $(this).getElementByClass(".description").children(".past", ".present", ".future").attr("id");
+    schedule[saveEvent].reminder = $(this).getElementByClass(".description").children(".past", ".present", ".future").val();//i used MDN for the sibling too
     
-    getToday();//saved data is saved to an array within the days array.and we are accessing the reminder portion. it is going to be equal to the value of the 
-    toDoDisplay();
+    getHeaderDate();//saved styles is saved to an array within the schedule array.and we are accessing the reminder portion. it is going to be equal to the value of the 
+    display();
 })
