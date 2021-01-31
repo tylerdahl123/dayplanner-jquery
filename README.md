@@ -1,5 +1,5 @@
 # dayplanner-jquery
-# Your Project Title
+
 
 ## Description 
 
